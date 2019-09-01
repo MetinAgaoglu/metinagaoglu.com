@@ -3,61 +3,61 @@
 {% block title %}Contents{% endblock %}
 
 {% block body %}
-    <h1>Contents</h1>
+    <article class="blog-post px-3 py-5 p-md-5">
+        <div class="container">
+            <header class="blog-post-header">
+                <h2 class="title mb-2">{{ content.title }}</h2>
+                <div class="meta mb-3"><span class="date">{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</span><span class="time">{{ content.hit }} read</span><span class="comment"><a href="#">4 comments</a></span></div>
+            </header>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>ContentId</th>
-                <td>{{ content.contentId }}</td>
-            </tr>
-            <tr>
-                <th>CategoryId</th>
-                <td>{{ content.categoryId }}</td>
-            </tr>
-            <tr>
-                <th>Keywords</th>
-                <td>{{ content.keywords }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ content.title }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ content.image }}</td>
-            </tr>
-            <tr>
-                <th>ImageId</th>
-                <td>{{ content.imageId }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ content.description }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ content.content }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Hit</th>
-                <td>{{ content.hit }}</td>
-            </tr>
-            <tr>
-                <th>Seourl</th>
-                <td>{{ content.seourl }}</td>
-            </tr>
-            <tr>
-                <th>IsActive</th>
-                <td>{{ content.isActive }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="blog-post-body">
+                {{ content.content | raw }}
+            </div>
 
-    <a href="{{ path('contents_index') }}">back to list</a>
-    
+            <nav class="blog-nav nav nav-justified my-5">
+                <a class="nav-link-prev nav-item nav-link rounded-left" href="index.html">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+                <a class="nav-link-next nav-item nav-link rounded-right" href="blog-list.html">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+            </nav>
+
+            <div class="blog-comments-section">
+                <div id="disqus_thread"></div>
+                <script>
+                    /**
+                     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
+                     *  THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR
+                     *  PLATFORM OR CMS.
+                     *
+                     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:
+                     *  https://disqus.com/admin/universalcode/#configuration-variables
+                     */
+                    /*
+                    var disqus_config = function () {
+                        // Replace PAGE_URL with your page's canonical URL variable
+                        this.page.url = PAGE_URL;
+
+                        // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        this.page.identifier = PAGE_IDENTIFIER;
+                    };
+                    */
+
+                    (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+                        var d = document, s = d.createElement('script');
+
+                        // IMPORTANT: Replace 3wmthemes with your forum shortname!
+                        s.src = 'https://3wmthemes.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>
+                    Please enable JavaScript to view the
+                    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+                        comments powered by Disqus.
+                    </a>
+                </noscript>
+            </div><!--//blog-comments-section-->
+
+        </div><!--//container-->
+    </article>
 {% endblock %}

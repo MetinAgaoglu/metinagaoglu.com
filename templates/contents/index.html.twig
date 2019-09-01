@@ -20,18 +20,12 @@
         <div class="container">
 
             {% for content in paginator.results %}
-                <tr>
-                    <td>{{ content.contentId }}</td>
-                    <td>{{ content.keywords }}</td>
-                    <td>{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ content.hit }}</td>
-                </tr>
                 <div class="item mb-5">
                     <div class="media">
                         <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="assets/images/blog/blog-post-thumb-1.jpg" alt="image">
                         <div class="media-body">
-                            <h3 class="title mb-1"><a href="blog-post.html">{{ content.title }}</a></h3>
-                            <div class="meta mb-1"><span class="date">Published 2 days ago</span><span class="time">5 min read</span><span class="comment"><a href="#">8 comments</a></span></div>
+                            <h3 class="title mb-1"><a href="{{ path('contents_show', {'contentId':content.contentId} ) }}">{{ content.title }}</a></h3>
+                            <div class="meta mb-1"><span class="date">{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</span><span class="time">5 min read</span><span class="comment"><a href="#">8 comments</a></span></div>
                             <div class="intro">{{ content.description }}</div>
                             <a class="more-link" href="{{ path('contents_show', {'contentId':content.contentId} ) }}">Read more &rarr;</a>
                         </div><!--//media-body-->
@@ -44,39 +38,36 @@
             {% endfor %}
 
             <nav class="blog-nav nav nav-justified my-5">
-                <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-                <a class="nav-link-next nav-item nav-link rounded" href="blog-list.html">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
-            </nav>
+                {% if paginator.hasToPaginate %}
+                    <ul class="pagination">
+                        {% if paginator.hasPreviousPage %}
+                            <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="{{ path('contents_index', {page: paginator.previousPage}) }}">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+                        {% else %}
+                            <li class="prev disabled"><span><i class="fa fw fa-arrow-left"></i> Previous</span></li>
+                        {% endif %}
+
+                        {% for i in 1..paginator.lastPage %}
+                            {% if i == paginator.currentPage %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li><a href="{{ path('contents_index', {page: i}) }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if paginator.hasNextPage %}
+                            <li class="next"><a href="{{ path('contents_index', {page: paginator.nextPage}) }}" rel="next">Next <i class="fa fw fa-arrow-right"></i></a></li>
+                        {% else %}
+                            <li class="next disabled"><span>Next <i class="fa fw fa-arrow-right"></i></span></li>
+                        {% endif %}
+                    </ul>
+        {% endif %}
+
+        </nav>
 
         </div>
     </section>
 
 
-    {% if paginator.hasToPaginate %}
-        <div class="navigation text-center">
-            <ul class="pagination">
-                {% if paginator.hasPreviousPage %}
-                    <li class="prev"><a href="{{ path('contents_index', {page: paginator.previousPage}) }}" rel="previous"><i class="fa fw fa-long-arrow-left"></i> Previous</a></li>
-                {% else %}
-                    <li class="prev disabled"><span><i class="fa fw fa-arrow-left"></i> Previous</span></li>
-                {% endif %}
-
-                {% for i in 1..paginator.lastPage %}
-                    {% if i == paginator.currentPage %}
-                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                    {% else %}
-                        <li><a href="{{ path('contents_index', {page: i}) }}">{{ i }}</a></li>
-                    {% endif %}
-                {% endfor %}
-
-                {% if paginator.hasNextPage %}
-                    <li class="next"><a href="{{ path('contents_index', {page: paginator.nextPage}) }}" rel="next">Next <i class="fa fw fa-arrow-right"></i></a></li>
-                {% else %}
-                    <li class="next disabled"><span>Next <i class="fa fw fa-arrow-right"></i></span></li>
-                {% endif %}
-            </ul>
-        </div>
-    {% endif %}
 
 
     <footer class="footer text-center py-2 theme-bg-dark">
