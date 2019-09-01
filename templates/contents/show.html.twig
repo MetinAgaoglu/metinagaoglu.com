@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contents{% endblock %}
+
+{% block body %}
+    <h1>Contents</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ContentId</th>
+                <td>{{ content.contentId }}</td>
+            </tr>
+            <tr>
+                <th>CategoryId</th>
+                <td>{{ content.categoryId }}</td>
+            </tr>
+            <tr>
+                <th>Keywords</th>
+                <td>{{ content.keywords }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ content.title }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ content.image }}</td>
+            </tr>
+            <tr>
+                <th>ImageId</th>
+                <td>{{ content.imageId }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ content.description }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ content.content }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Hit</th>
+                <td>{{ content.hit }}</td>
+            </tr>
+            <tr>
+                <th>Seourl</th>
+                <td>{{ content.seourl }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ content.isActive }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('contents_index') }}">back to list</a>
+    
+{% endblock %}
