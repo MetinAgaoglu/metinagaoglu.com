@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Categories
      */
     private $seourl;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contents", mappedBy="category", orphanRemoval=true)
+     */
+    private $contents;
+
+    public function __construct()
+    {
+        $this->contents = new ArrayCollection();
+    }
+
     public function getCategoryId(): ?int
     {
         return $this->categoryId;
@@ -79,6 +91,37 @@ class Categories
     public function setSeourl(string $seourl): self
     {
         $this->seourl = $seourl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contents[]
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Contents $content): self
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(Contents $content): self
+    {
+        if ($this->contents->contains($content)) {
+            $this->contents->removeElement($content);
+            // set the owning side to null (unless already changed)
+            if ($content->getCategory() === $this) {
+                $content->setCategory(null);
+            }
+        }
 
         return $this;
     }

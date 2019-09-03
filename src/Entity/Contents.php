@@ -98,6 +98,12 @@ class Contents
      */
     private $isActive = '0';
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categories", inversedBy="contents")
+     * @ORM\JoinColumn(nullable=false,referencedColumnName="category_id")
+     */
+    private $category;
+
     public function getContentId(): ?int
     {
         return $this->contentId;
@@ -231,6 +237,18 @@ class Contents
     public function setIsActive(int $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categories
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categories $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

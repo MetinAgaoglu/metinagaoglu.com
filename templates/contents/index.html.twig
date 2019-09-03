@@ -25,7 +25,10 @@
                         <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="assets/images/blog/blog-post-thumb-1.jpg" alt="image">
                         <div class="media-body">
                             <h3 class="title mb-1"><a href="{{ path('contents_show', {'contentId':content.contentId} ) }}">{{ content.title }}</a></h3>
-                            <div class="meta mb-1"><span class="date">{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</span><span class="time">5 min read</span><span class="comment"><a href="#">8 comments</a></span></div>
+
+                            <div class="meta mb-1">
+                                <span class="date">{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                                <span class="time">{{ content.hit }} read</span><span class="comment"><a href="#">{{ content.category.title }}</a></span></div>
                             <div class="intro">{{ content.description }}</div>
                             <a class="more-link" href="{{ path('contents_show', {'contentId':content.contentId} ) }}">Read more &rarr;</a>
                         </div><!--//media-body-->

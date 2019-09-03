@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contents{% endblock %}
+{% block title %}{{ content.title }}{% endblock %}
 
 {% block body %}
     <article class="blog-post px-3 py-5 p-md-5">
         <div class="container">
             <header class="blog-post-header">
                 <h2 class="title mb-2">{{ content.title }}</h2>
-                <div class="meta mb-3"><span class="date">{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</span><span class="time">{{ content.hit }} read</span><span class="comment"><a href="#">4 comments</a></span></div>
+                <div class="meta mb-3">
+                    <span class="date">{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                    <span class="time">{{ content.hit }} read</span><span class="comment"><a href="#">{{ content.category.title }}</a></span></div>
             </header>
 
             <div class="blog-post-body">
