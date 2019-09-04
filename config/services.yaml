@@ -29,3 +29,15 @@ services:
       class: Twig_Extensions_Extension_Text
       tags:
         - { name: twig.extension }
+
+    admin.category:
+      class: App\Admin\CategoryAdmin
+      arguments: [~, App\Entity\Categories, ~]
+      tags:
+       - { name: sonata.admin, manager_type: orm, label: Categories }
+
+    admin.blog_post:
+      class: App\Admin\ContentAdmin
+      arguments: [~, App\Entity\Contents, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, label: 'Blog post' }
