@@ -43,16 +43,9 @@ class Contents
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=100, nullable=false)
-     */
-    private $image;
-
-    /**
      * @var int
      *
-     * @ORM\Column(name="image_id", type="integer", nullable=false)
+     * @ORM\Column(name="image_id", type="integer", nullable=true)
      */
     private $imageId = '0';
 
@@ -75,21 +68,15 @@ class Contents
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="hit", type="integer", nullable=false)
+     * @ORM\Column(name="hit", type="integer", nullable=true,options={"default"="0"})
      */
-    private $hit;
+    private $hit = 0;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="seourl", type="string", length=300, nullable=false)
-     */
-    private $seourl;
 
     /**
      * @var int
@@ -141,18 +128,6 @@ class Contents
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -213,18 +188,6 @@ class Contents
     public function setHit(int $hit): self
     {
         $this->hit = $hit;
-
-        return $this;
-    }
-
-    public function getSeourl(): ?string
-    {
-        return $this->seourl;
-    }
-
-    public function setSeourl(string $seourl): self
-    {
-        $this->seourl = $seourl;
 
         return $this;
     }
