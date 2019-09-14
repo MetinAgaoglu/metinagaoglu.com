@@ -49,6 +49,11 @@ class Files
      */
     private $createdUser;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Contents", mappedBy="image", cascade={"persist", "remove"})
+     */
+    private $contents;
+
     public function getFileId(): ?int
     {
         return $this->fileId;
@@ -98,6 +103,23 @@ class Files
     public function setCreatedUser(int $createdUser): self
     {
         $this->createdUser = $createdUser;
+
+        return $this;
+    }
+
+    public function getContents(): ?Contents
+    {
+        return $this->contents;
+    }
+
+    public function setContents(Contents $contents): self
+    {
+        $this->contents = $contents;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $contents->getImage()) {
+            $contents->setImage($this);
+        }
 
         return $this;
     }

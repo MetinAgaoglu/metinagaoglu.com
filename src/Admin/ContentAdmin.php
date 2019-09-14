@@ -2,13 +2,15 @@
 namespace App\Admin;
 
 use App\Entity\Categories;
+use App\Entity\Files;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -35,8 +37,30 @@ final class ContentAdmin extends AbstractAdmin
 					'property' => 'title',
 				])
 				->add('keywords',TextType::class)
+				->add('image',FileType::class,[
+					'required' => false,
+					'mapped' => false,
+					'data_class' => Files::class,
+					'constraints' => [
+						new File([
+							'maxSize' => '1M',
+							'mimeTypes' => [
+								'image/jpeg',
+								'image/png',
+							],
+							'mimeTypesMessage' => 'Please upload a valid image',
+						])
+					],
+				])
 			->end()
 		;
+	}
+
+	public function prePersist($object)
+	{
+		dd($object);
+		$this->manageFileUpload($object);
+
 	}
 
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)

@@ -91,6 +91,12 @@ class Contents
      */
     private $category;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Files", inversedBy="contents", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false,referencedColumnName="file_id")
+     */
+    private $image;
+
     public function getContentId(): ?int
     {
         return $this->contentId;
@@ -212,6 +218,18 @@ class Contents
     public function setCategory(?Categories $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getImage(): ?Files
+    {
+        return $this->image;
+    }
+
+    public function setImage(Files $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
